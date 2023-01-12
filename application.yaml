@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: digitalapi-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ehssaine/argocd-app-config.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: digitalapi
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    # Each 3 minutes argo CD will check for changes and updated
+    # But it can be configured to sync automatically
+    automated:
+      # always put the state in the git repo even if the modification is done locally
+      selfHeal: true
+      # if a component get deleted or updated trigger an update of the state
+      prune: true
