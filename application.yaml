@@ -23,4 +23,4 @@ spec:
       # always put the state in the git repo even if the modification is done locally
       selfHeal: true
       # if a component get deleted or updated trigger an update of the state
-      prune: true
+      prune: false
